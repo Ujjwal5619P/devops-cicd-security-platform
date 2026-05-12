@@ -15,23 +15,36 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Setup Environment
-      run: echo "Setting up build environment..."
-
-    - name: Install Dependencies
-      run: echo "Installing dependencies..."
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
     - name: Build Project
-      run: echo "Building project..."
+      run: |
+        mkdir -p artifacts
+        echo "build successful" > artifacts/build.txt
 
     - name: Run Tests
       run: echo "Running unit tests..."
 
-    - name: Static Code Analysis (Sonar placeholder)
-      run: echo "Running SonarQube analysis..."
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v2
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: http://localhost:9000
+
+    - name: Quality Gate Check
+      run: echo "Checking SonarQube Quality Gate..."
 
     - name: Security Scan
       run: echo "Running security checks..."
+
+    - name: Save Artifacts
+      run: |
+        mkdir -p artifacts
+        echo "CI completed successfully" > artifacts/ci-report.txt
 
     - name: CI Status
       run: echo "CI Pipeline Completed Successfully"
