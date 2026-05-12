@@ -1,0 +1,28 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Build Artifact
+      run: echo "Creating deployment package..."
+
+    - name: Deploy to Server
+      run: echo "Deploying application to production server..."
+
+    - name: Health Check
+      run: echo "Checking application health..."
+
+    - name: Deployment Status
+      run: echo "Deployment Successful"
