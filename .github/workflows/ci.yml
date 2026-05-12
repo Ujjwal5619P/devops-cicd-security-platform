@@ -21,10 +21,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Create Artifacts Directory
+      run: mkdir -p artifacts
+
     - name: Build Project
-      run: |
-        mkdir -p artifacts
-        echo "build successful" > artifacts/build.txt
+      run: echo "build successful" > artifacts/build.txt
 
     - name: Run Tests
       run: echo "Running unit tests..."
@@ -38,10 +39,14 @@ jobs:
     - name: Security Scan
       run: echo "Running security checks..."
 
-    - name: Save Artifacts
-      run: |
-        mkdir -p artifacts
-        echo "CI completed successfully" > artifacts/ci-report.txt
+    - name: Generate CI Report
+      run: echo "CI completed successfully" > artifacts/ci-report.txt
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ci-artifacts
+        path: artifacts/
 
     - name: CI Status
       run: echo "CI Pipeline Completed Successfully"
