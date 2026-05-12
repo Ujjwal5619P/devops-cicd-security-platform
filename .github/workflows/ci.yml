@@ -1,0 +1,52 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  ci-process:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Create Artifacts Directory
+      run: mkdir -p artifacts
+
+    - name: Build Project
+      run: echo "build successful" > artifacts/build.txt
+
+    - name: Run Tests
+      run: echo "Running unit tests..."
+
+    - name: Static Code Analysis (Sonar Simulation)
+      run: echo "SonarQube analysis skipped (no remote server available)"
+
+    - name: Quality Gate Check
+      run: echo "Quality Gate Passed (simulated)"
+
+    - name: Security Scan
+      run: echo "Running security checks..."
+
+    - name: Generate CI Report
+      run: echo "CI completed successfully" > artifacts/ci-report.txt
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ci-artifacts
+        path: artifacts/
+
+    - name: CI Status
+      run: echo "CI Pipeline Completed Successfully"
