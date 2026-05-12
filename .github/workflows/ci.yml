@@ -6,32 +6,26 @@ on:
       - development
 
 jobs:
-  ci-process:
+  ci:
 
     runs-on: ubuntu-latest
 
     steps:
 
-    - name: Checkout Code
+    - name: Source Checkout
       uses: actions/checkout@v4
 
-    - name: Setup Environment
-      run: echo "Setting up build environment..."
+    - name: Build
+      run: |
+        echo "Building project..."
+        mkdir -p artifacts
+        echo "build success" > artifacts/build.txt
 
-    - name: Install Dependencies
-      run: echo "Installing dependencies..."
+    - name: Test
+      run: echo "Running tests..."
 
-    - name: Build Project
-      run: echo "Building project..."
-
-    - name: Run Tests
-      run: echo "Running unit tests..."
-
-    - name: Static Code Analysis (Sonar placeholder)
-      run: echo "Running SonarQube analysis..."
-
-    - name: Security Scan
+    - name: Security Validation
       run: echo "Running security checks..."
 
-    - name: CI Status
-      run: echo "CI Pipeline Completed Successfully"
+    - name: Upload Artifact
+      run: echo "Storing artifacts in artifacts/"

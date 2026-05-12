@@ -15,14 +15,14 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Build Artifact
-      run: echo "Creating deployment package..."
+    - name: Deployment Step
+      run: echo "Deploying application..."
 
-    - name: Deploy to Server
-      run: echo "Deploying application to production server..."
+    - name: Generate Deployment Report
+      run: |
+        mkdir -p artifacts
+        echo "Deployment successful" > artifacts/deploy-report.txt
 
-    - name: Health Check
-      run: echo "Checking application health..."
-
-    - name: Deployment Status
-      run: echo "Deployment Successful"
+    - name: Rollback Mechanism
+      if: failure()
+      run: echo "Rollback triggered..."
