@@ -704,3 +704,9 @@ reports/opa/
 
 ## 👨‍💻 Author
 DevOps Security Pipeline Project (Student Implementation)
+
+
+Note: Mainly check Deployment branch main all work done there 
+Deployment: CI pipeline ,reports, and whole main project (pls check it )
+Staging:Merge conflict
+Production: CD pipeline
